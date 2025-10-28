@@ -1,0 +1,134 @@
+heart - low risk -
+Prediction Result
+✅ Negative (Low Risk) — Probability: 0.195
+
+heart - high risk -
+Prediction Result
+🩸 Positive (High Risk) — Probability: 0.6
+
+stroke - low risk -
+Prediction Result
+✅ Negative (Low Risk) — Probability: 0.244
+
+Given,
+{
+  "age": 35,
+  "hypertension": 0,
+  "heart_disease": 0,
+  "ever_married": 0,  
+  "avg_glucose_level": 85.0,
+  "bmi": 22.5,
+  "gender_Male": 1,
+  "gender_Other": 0,
+  "work_type_Govt_job": 0,
+  "work_type_Never_worked": 0,
+  "work_type_Private": 1,
+  "work_type_Self-employed": 0,
+  "work_type_children": 0,
+  "Residence_type_Rural": 0,
+  "Residence_type_Urban": 1,
+  "smoking_status_Unknown": 0,
+  "smoking_status_formerly smoked": 0,
+  "smoking_status_never smoked": 1,
+  "smoking_status_smokes": 0
+}
+
+Taken,
+{
+  "input_preview": [
+    {
+      "Residence_type_Rural": 0,
+      "Residence_type_Urban": 0,
+      "age": 35,
+      "avg_glucose_level": 85,
+      "bmi": 22.5,
+      "ever_married": 0,
+      "gender_Male": 1,
+      "gender_Other": 0,
+      "heart_disease": 0,
+      "hypertension": 0,
+      "smoking_status_Unknown": 0,
+      "smoking_status_formerly smoked": 0,
+      "smoking_status_never smoked": 0,
+      "smoking_status_smokes": 0,
+      "work_type_Govt_job": 0,
+      "work_type_Never_worked": 0,
+      "work_type_Private": 1,
+      "work_type_Self-employed": 0,
+      "work_type_children": 0
+    }
+  ],
+  "prediction_text": "\u2705 Negative (Low Risk) \u2014 Probability: 0.244",
+  "raw": {
+    "prediction": 0,
+    "probability": 0.244
+  }
+}
+
+stroke - high risk - 
+Prediction Result
+✅ Negative (Low Risk) — Probability: 0.226
+
+Given,
+{
+  "age": 68,
+  "hypertension": 1,
+  "heart_disease": 1,
+  "ever_married": 1,
+  "avg_glucose_level": 175.4,
+  "bmi": 34.5,
+  "gender_Male": 1,
+  "gender_Other": 0,
+  "work_type_Govt_job": 0,
+  "work_type_Never_worked": 0,
+  "work_type_Private": 0,
+  "work_type_Self-employed": 1,
+  "work_type_children": 0,  
+  "Residence_type_Rural": 1,
+  "Residence_type_Urban": 0,
+  "smoking_status_Unknown": 0,
+  "smoking_status_formerly smoked": 1,
+  "smoking_status_never smoked": 0,
+  "smoking_status_smokes": 0
+}
+
+Taken,
+{
+  "input_preview": [
+    {
+      "Residence_type_Rural": 0,
+      "Residence_type_Urban": 0,
+      "age": 68,
+      "avg_glucose_level": 175.4,
+      "bmi": 34.5,
+      "ever_married": 1,
+      "gender_Male": 1,
+      "gender_Other": 0,
+      "heart_disease": 1,
+      "hypertension": 1,
+      "smoking_status_Unknown": 0,
+      "smoking_status_formerly smoked": 0,
+      "smoking_status_never smoked": 0,
+      "smoking_status_smokes": 0,
+      "work_type_Govt_job": 0,
+      "work_type_Never_worked": 0,
+      "work_type_Private": 0,
+      "work_type_Self-employed": 1,
+      "work_type_children": 0
+    }
+  ],
+  "prediction_text": "\u2705 Negative (Low Risk) \u2014 Probability: 0.226",
+  "raw": {
+    "prediction": 0,
+    "probability": 0.226
+  }
+}
+
+
+hepatitis - low risk -
+Prediction Result
+✅ Negative (Low Risk) — Probability: 0.211
+
+hepatitis - high risk - 
+Prediction Result
+🩸 Positive (High Risk) — Probability: 0.94

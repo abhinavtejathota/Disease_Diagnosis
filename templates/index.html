@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Disease Diagnosis System</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@700;600;400&family=Montserrat:wght@600;400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", "Montserrat", sans-serif;
+        color: #232a35;
+        min-height: 100vh;
+      }
+      .navbar {
+        background: #25234d;
+        box-shadow: 0 4px 18px #7269ec30;
+      }
+      .navbar-brand {
+        font-family: "Montserrat", "Inter", sans-serif;
+        color: #fff !important;
+        font-weight: 700;
+        font-size: 2em;
+        letter-spacing: 2.5px;
+        text-shadow: 0 3px 24px #7c4dff50;
+      }
+      .dashboard {
+        background: linear-gradient(120deg, #c3b7f7 25%, #81d0fb 100%);
+        border-radius: 20px;
+        box-shadow: 0 7px 38px #5e93fa25;
+        padding: 36px 29px 42px 29px;
+        max-width: 900px;
+        margin: 53px auto 44px auto;
+        position: relative;
+        animation: fadeInDash 1s ease;
+        text-align: center;
+      }
+      @keyframes fadeInDash {
+        from {
+          opacity: 0;
+          transform: scale(0.96);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      .dash-title {
+        font-family: "Montserrat", "Inter", sans-serif;
+        color: #372885;
+        font-weight: 700;
+        font-size: 2.2em;
+        margin-bottom: 16px;
+        letter-spacing: 1px;
+        text-shadow: 0 2px 22px #7861de40;
+      }
+      .dashboard-hero {
+        width: 100%;
+        max-width: 400px;
+        display: block;
+        margin: 16px auto 27px auto;
+        border-radius: 18px;
+        box-shadow: 0 6px 46px #1976d255;
+      }
+      .multistep-form {
+        border-radius: 20px;
+        max-width: 750px;
+        margin: 40px auto 44px auto;
+        box-shadow: 0 6px 32px #4d4bc579;
+        padding: 36px 28px 30px 28px;
+        position: relative;
+        background: linear-gradient(115deg, #f5f6fa 85%, #e0d3ff 100%);
+        animation: fadeInForm 1s ease;
+      }
+      @keyframes fadeInForm {
+        from {
+          opacity: 0;
+          transform: scale(0.96);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      .step-title {
+        color: #6a319c;
+        font-size: 2rem;
+        font-family: "Montserrat", "Inter", sans-serif;
+        font-weight: 700;
+        margin-bottom: 9px;
+        text-shadow: 0 2px 28px #a483ed68;
+      }
+      .step-indicators {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+        gap: 11px;
+      }
+      .indicator {
+        height: 14px;
+        width: 14px;
+        border-radius: 50%;
+        background: #b8c1ec;
+        transition: background 0.3s;
+        box-shadow: 0 2px 8px #7067f0;
+      }
+      .indicator.active {
+        background: #6a319c;
+        box-shadow: 0 2px 18px #7e57c255;
+      }
+      /* Unique backgrounds for steps/pages */
+      #step0 {
+        background: linear-gradient(104deg, #fff6ea 70%, #e4e7fa 100%);
+      }
+      #step1 {
+        background: linear-gradient(120deg, #e0fffe 70%, #c6f7e7 100%);
+      }
+      #step2 {
+        background: linear-gradient(106deg, #e7e8fc 70%, #ffc6d8 100%);
+      }
+      #step3 {
+        background: linear-gradient(120deg, #fffadf 60%, #e6d7f8 100%);
+      }
+      .ai-img {
+        width: 100%;
+        max-width: 330px;
+        border-radius: 21px;
+        box-shadow: 0 8px 38px #b4afec33;
+        margin: 10px auto 21px auto;
+        display: block;
+      }
+      .btn-primary {
+        background: linear-gradient(90deg, #6c47d7 60%, #27b8d1 100%);
+        border: none;
+        font-family: "Montserrat", "Inter", sans-serif;
+        font-weight: 600;
+        letter-spacing: 1px;
+        font-size: 1.15em;
+      }
+      .btn-primary:disabled,
+      .btn-secondary:disabled {
+        opacity: 0.6;
+      }
+      .btn-primary:hover,
+      .btn-secondary:hover {
+        background: #372885;
+      }
+      .results-box {
+        margin-top: 19px;
+        background: #f3edfd;
+        border-radius: 10px;
+        padding: 16px;
+        box-shadow: 0 4px 24px #e1bee7;
+        font-family: "Montserrat", "Inter", sans-serif;
+        color: #4527a0;
+        font-size: 1.17em;
+      }
+      label {
+        margin-bottom: 5px;
+        font-weight: 500;
+        color: #4527a0;
+        letter-spacing: 0.5px;
+        font-family: "Montserrat";
+      }
+      input,
+      select {
+        font-size: 1.11em;
+      }
+      ::placeholder {
+        color: #b0bec5 !important;
+      }
+      @media (max-width: 600px) {
+        .multistep-form {
+          padding: 11px;
+        }
+        .ai-img,
+        .dashboard-hero {
+          max-width: 98%;
+        }
+        .dash-title {
+          font-size: 1.37em;
+        }
+        .step-title {
+          font-size: 1.3em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar mb-2">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">🩺 Disease Diagnosis System</a>
+      </div>
+    </nav>
+
+    <!-- DASHBOARD PAGE -->
+    <div class="dashboard" id="dashboardPage">
+      <div class="dash-title">Welcome to Your Health Dashboard</div>
+      <img
+        src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/abb5cce7-d1ec-43d5-b8c9-94507601515b.png"
+        alt="Health Dashboard"
+        class="dashboard-hero"
+      />
+
+      <div class="text-center mt-4 mb-2">
+        <label class="form-label mb-2" style="font-weight: 600; color: #372885"
+          >Select Disease for Diagnosis</label
+        >
+        <select
+          id="diseaseSelect"
+          class="form-select mx-auto mb-3"
+          style="max-width: 300px"
+        >
+          <option value="heart" selected>🫀 Heart Disease</option>
+          <option value="stroke">🧠 Stroke</option>
+          <option value="hepatitis">🧬 Hepatitis</option>
+        </select>
+        <button class="btn btn-primary px-5 py-2" onclick="startDiagnosis()">
+          + New Diagnosis
+        </button>
+      </div>
+    </div>
+
+    <!-- MULTISTEP FORM -->
+    <form
+      class="multistep-form"
+      id="diagnosisForm"
+      onsubmit="return false;"
+      style="display: none"
+    >
+      <div class="step-indicators">
+        <div class="indicator" id="ind0"></div>
+        <div class="indicator" id="ind1"></div>
+        <div class="indicator" id="ind2"></div>
+        <div class="indicator" id="ind3"></div>
+      </div>
+
+      <!-- Personal Info -->
+      <div id="step0" class="step-content">
+        <div class="step-title">Personal Info</div>
+        <div class="row g-3 mb-2">
+          <div class="col-md-4">
+            <label>Age</label>
+            <input
+              type="number"
+              class="form-control"
+              placeholder="0–120"
+              required
+            />
+          </div>
+          <div class="col-md-4">
+            <label>Sex</label>
+            <select class="form-select" required>
+              <option>Select</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label>Ever Married</label>
+            <select class="form-select">
+              <option>Select</option>
+              <option>Yes</option>
+              <option>No</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label>Work Type</label>
+            <select class="form-select">
+              <option>Select</option>
+              <option>Private</option>
+              <option>Self-employed</option>
+              <option>Children</option>
+              <option>Never_worked</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label>Residence Type</label>
+            <select class="form-select">
+              <option>Select</option>
+              <option>Urban</option>
+              <option>Rural</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vitals & Medical History -->
+      <div id="step1" class="step-content" style="display: none">
+        <div class="step-title">Vitals & Medical History</div>
+        <img
+          src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/d2144671-03d7-4709-b217-e55fb6b5aeba.png"
+          class="ai-img"
+          alt="Vitals & Medical History"
+        />
+        <div class="row g-3 mb-2">
+          <div class="col-md-3">
+            <label>Resting BP</label>
+            <input type="number" class="form-control" placeholder="50-250" />
+          </div>
+          <div class="col-md-3">
+            <label>Cholesterol</label>
+            <input type="number" class="form-control" placeholder="100-500" />
+          </div>
+          <div class="col-md-3">
+            <label>Fasting BS</label>
+            <select class="form-select">
+              <option>Select</option>
+              <option>No</option>
+              <option>Yes</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label>MaxHR</label>
+            <input type="number" class="form-control" placeholder="60-220" />
+          </div>
+          <div class="col-md-3">
+            <label>Oldpeak</label>
+            <input type="number" class="form-control" placeholder="0-10" />
+          </div>
+          <div class="col-md-3">
+            <label>Hypertension</label>
+            <select class="form-select">
+              <option>Select</option>
+              <option>No</option>
+              <option>Yes</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label>Heart Disease</label>
+            <select class="form-select">
+              <option>Select</option>
+              <option>No</option>
+              <option>Yes</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label>BMI</label>
+            <input type="number" class="form-control" placeholder="10-60" />
+          </div>
+          <div class="col-md-3">
+            <label>Avg Glucose Level</label>
+            <input type="number" class="form-control" placeholder="50-500" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Lab Tests -->
+      <div id="step2" class="step-content" style="display: none">
+        <div class="step-title">Lab Tests</div>
+        <img
+          src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/255113bb-f566-432b-99b1-d4020215a89b.png"
+          class="ai-img"
+          alt="Lab Tests"
+        />
+        <div class="row g-3 mb-2">
+          <div class="col-md-3">
+            <label>ALB</label>
+            <input type="number" class="form-control" placeholder="1-10" />
+          </div>
+          <div class="col-md-3">
+            <label>ALP</label>
+            <input type="number" class="form-control" placeholder="20-300" />
+          </div>
+          <div class="col-md-3">
+            <label>ALT</label>
+            <input type="number" class="form-control" placeholder="5-100" />
+          </div>
+          <div class="col-md-3">
+            <label>AST</label>
+            <input type="number" class="form-control" placeholder="5-100" />
+          </div>
+          <div class="col-md-3">
+            <label>BIL</label>
+            <input type="number" class="form-control" placeholder="0-5" />
+          </div>
+          <div class="col-md-3">
+            <label>CHE</label>
+            <input type="number" class="form-control" placeholder="1-20" />
+          </div>
+          <div class="col-md-3">
+            <label>CHOL</label>
+            <input type="number" class="form-control" placeholder="100-400" />
+          </div>
+          <div class="col-md-3">
+            <label>CREA</label>
+            <input type="number" class="form-control" placeholder="0-5" />
+          </div>
+          <div class="col-md-3">
+            <label>GGT</label>
+            <input type="number" class="form-control" placeholder="10-150" />
+          </div>
+          <div class="col-md-3">
+            <label>PROT</label>
+            <input type="number" class="form-control" placeholder="1-15" />
+          </div>
+        </div>
+      </div>
+
+      <!-- ECG & Chest Pain + Smoking -->
+      <div id="step3" class="step-content" style="display: none">
+        <div class="step-title">ECG & Chest Pain</div>
+        <img
+          src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/6ce2b5e7-7620-481c-a288-9a23548ceb94.png"
+          class="ai-img"
+          alt="ECG and Chest Pain"
+        />
+        <div class="row g-3 mb-2">
+          <div class="col-md-3">
+            <label>Chest Pain Type</label>
+            <select class="form-select">
+              <option>Select</option>
+              <option>ATA</option>
+              <option>NAP</option>
+              <option>TA</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label>Resting ECG</label>
+            <select class="form-select">
+              <option>Select</option>
+              <option>Normal</option>
+              <option>ST</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label>Exercise Angina</label>
+            <select class="form-select">
+              <option>Select</option>
+              <option>No</option>
+              <option>Yes</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label>ST Slope</label>
+            <select class="form-select">
+              <option>Select</option>
+              <option>Up</option>
+              <option>Flat</option>
+              <option>Down</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label>Smoking</label>
+            <select class="form-select">
+              <option>Select</option>
+              <option>Non-Smoker</option>
+              <option>Current Smoker</option>
+              <option>Ex-Smoker</option>
+            </select>
+          </div>
+        </div>
+        <div class="text-center mt-4">
+          <button
+            type="button"
+            class="btn btn-primary px-5 py-2"
+            onclick="predict()"
+            id="submitBtn"
+          >
+            Predict
+          </button>
+          <div class="results-box mt-3" id="result-box" style="display: none">
+            <h5>Prediction Result</h5>
+            <p id="result">Please fill in all details and click Predict.</p>
+          </div>
+        </div>
+      </div>
+      <!-- Navigation buttons -->
+      <div class="d-flex justify-content-between mt-4">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          onclick="prevStep()"
+          id="backBtn"
+          style="visibility: hidden"
+        >
+          Back
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          onclick="nextStep()"
+          id="nextBtn"
+        >
+          Next
+        </button>
+      </div>
+    </form>
+
+    <div class="text-center my-4" style="color: #7b27d9">
+      <b
+        >© 2025 Disease Diagnosis System | Designed for modern healthcare &
+        AI</b
+      >
+    </div>
+    <script>
+      let currentStep = 0;
+      const totalSteps = 4;
+      let selectedDisease = "heart";
+
+      function showStep(step) {
+        for (let i = 0; i < totalSteps; i++) {
+          const s = document.getElementById("step" + i);
+          const ind = document.getElementById("ind" + i);
+          if (s && ind) {
+            s.style.display = i === step ? "block" : "none";
+            ind.classList.toggle("active", i === step);
+          }
+        }
+        document.getElementById("backBtn").style.visibility =
+          step === 0 ? "hidden" : "visible";
+        document.getElementById("nextBtn").style.display =
+          step === totalSteps - 1 ? "none" : "inline-block";
+      }
+
+      function nextStep() {
+        if (currentStep < totalSteps - 1) {
+          currentStep++;
+          showStep(currentStep);
+        }
+      }
+
+      function prevStep() {
+        if (currentStep > 0) {
+          currentStep--;
+          showStep(currentStep);
+        }
+      }
+
+      function startDiagnosis() {
+        selectedDisease = document.getElementById("diseaseSelect").value;
+        document.getElementById("dashboardPage").style.display = "none";
+        document.getElementById("diagnosisForm").style.display = "block";
+
+        currentStep = 0;
+        showStep(currentStep);
+      }
+
+      showStep(currentStep);
+    </script>
+
+    <script>
+      function norm(value) {
+        if (!value) return "";
+        return String(value).toString().trim().toLowerCase();
+      }
+
+      async function predict() {
+        document.getElementById("result-box").style.display = "block";
+        document.getElementById("result").innerText =
+          "Processing prediction...";
+
+        const labelToFeature = {
+          Age: "Age",
+          Sex: "Sex",
+          "Resting BP": "RestingBP",
+          Cholesterol: "Cholesterol",
+          "Fasting BS": "FastingBS",
+          MaxHR: "MaxHR",
+          Oldpeak: "Oldpeak",
+
+          "Chest Pain Type": "ChestPainType",
+          "Resting ECG": "RestingECG",
+          "Exercise Angina": "ExerciseAngina",
+          "ST Slope": "ST_Slope",
+
+          Smoking: "Smoking",
+
+          ALB: "ALB",
+          ALP: "ALP",
+          ALT: "ALT",
+          AST: "AST",
+          BIL: "BIL",
+          CHE: "CHE",
+          CHOL: "CHOL",
+          CREA: "CREA",
+          GGT: "GGT",
+          PROT: "PROT",
+
+          age: "age",
+          hypertension: "hypertension",
+          heart_disease: "heart_disease",
+          ever_married: "ever_married",
+          avg_glucose_level: "avg_glucose_level",
+          bmi: "bmi",
+          age: "age",
+          hypertension: "hypertension",
+          heart_disease: "heart_disease",
+          ever_married: "ever_married",
+          avg_glucose_level: "avg_glucose_level",
+          bmi: "bmi",
+
+          gender_Male: "gender_Male",
+          gender_Other: "gender_Other",
+
+          work_type_Govt_job: "work_type_Govt_job",
+          work_type_Never_worked: "work_type_Never_worked",
+          work_type_Private: "work_type_Private",
+          "work_type_Self-employed": "work_type_Self-employed",
+          work_type_children: "work_type_children",
+
+          Residence_type_Rural: "Residence_type_Rural",
+          Residence_type_Urban: "Residence_type_Urban",
+
+          smoking_status_Unknown: "smoking_status_Unknown",
+          "smoking_status_formerly smoked": "smoking_status_formerly smoked",
+          "smoking_status_never smoked": "smoking_status_never smoked",
+          smoking_status_smokes: "smoking_status_smokes",
+
+          "Work Type": "work_type",
+          "Residence Type": "residence_type",
+          Smoking: "smoking_status",
+          "Ever Married": "ever_married",
+          "Avg Glucose Level": "avg_glucose_level",
+          "Heart Disease": "heart_disease",
+          Hypertension: "hypertension",
+          BMI: "bmi",
+        };
+
+        const simpleMap = {
+          Male: 1,
+          Female: 0,
+          Other: 2,
+          Yes: 1,
+          No: 0,
+          Urban: 1,
+          Rural: 0,
+          "Non-Smoker": 0,
+          "Current Smoker": 1,
+          "Ex-Smoker": 2,
+        };
+
+        const inputs = document.querySelectorAll(
+          "#diagnosisForm input, #diagnosisForm select"
+        );
+        const rawData = {};
+
+        inputs.forEach((input) => {
+          const labelEl = input.previousElementSibling;
+          if (!labelEl) return;
+          const label = labelEl.innerText.trim();
+          if (
+            !(label in labelToFeature) &&
+            ![
+              "Chest Pain Type",
+              "Resting ECG",
+              "ST Slope",
+              "Exercise Angina",
+              "Smoking",
+            ].includes(label)
+          ) {
+          }
+          let value = input.value;
+          if (!value || value === "Select") return;
+
+          if (simpleMap[value] !== undefined) value = simpleMap[value];
+          else {
+            const n = Number(value);
+            if (!Number.isNaN(n)) value = n;
+          }
+
+          rawData[label] = value;
+        });
+
+        const features = {};
+        if (selectedDisease === "heart") {
+          features["Age"] = rawData["Age"] ?? 0;
+          features["Sex"] = rawData["Sex"] ?? 0;
+          features["RestingBP"] = rawData["Resting BP"] ?? 0;
+          features["Cholesterol"] = rawData["Cholesterol"] ?? 0;
+          features["FastingBS"] = rawData["Fasting BS"] ?? 0;
+          features["MaxHR"] = rawData["MaxHR"] ?? 0;
+          features["Oldpeak"] = rawData["Oldpeak"] ?? 0;
+
+          // Chest Pain one-hot
+          const cp = rawData["Chest Pain Type"] ?? "Select";
+          features["ChestPainType_ATA"] = cp === "ATA" ? 1 : 0;
+          features["ChestPainType_NAP"] = cp === "NAP" ? 1 : 0;
+          features["ChestPainType_TA"] = cp === "TA" ? 1 : 0;
+
+          // Resting ECG one-hot
+          const recg = rawData["Resting ECG"] ?? "Select";
+          features["RestingECG_Normal"] = recg === "Normal" ? 1 : 0;
+          features["RestingECG_ST"] = recg === "ST" ? 1 : 0;
+
+          // Exercise Angina -> single column with Y=1 else 0
+          const ex = rawData["Exercise Angina"];
+          features["ExerciseAngina_Y"] = ex === 1 || ex === "Yes" ? 1 : 0;
+
+          // ST Slope one-hot (feature list expects Flat and Up; Down will leave both 0)
+          const slope = rawData["ST Slope"] ?? "Select";
+          features["ST_Slope_Flat"] = slope === "Flat" ? 1 : 0;
+          features["ST_Slope_Up"] = slope === "Up" ? 1 : 0;
+        } else if (selectedDisease === "hepatitis") {
+          // direct field copies, default 0
+          [
+            "Age",
+            "Sex",
+            "ALB",
+            "ALP",
+            "ALT",
+            "AST",
+            "BIL",
+            "CHE",
+            "CHOL",
+            "CREA",
+            "GGT",
+            "PROT",
+          ].forEach((k) => {
+            features[k] = rawData[k] ?? 0;
+          });
+        } else if (selectedDisease === "stroke") {
+          // stroke expects lower-case keys in your feature.py; convert appropriately and one-hot style where used
+          features["age"] = rawData["age"] ?? rawData["Age"] ?? 0;
+          features["hypertension"] =
+            rawData["Hypertension"] ?? rawData["hypertension"] ?? 0;
+          features["heart_disease"] =
+            rawData["Heart Disease"] ?? rawData["heart_disease"] ?? 0;
+          features["ever_married"] =
+            rawData["Ever Married"] ?? rawData["ever_married"] ?? 0;
+          features["avg_glucose_level"] =
+            rawData["Avg Glucose Level"] ?? rawData["avg_glucose_level"] ?? 0;
+          features["bmi"] = rawData["BMI"] ?? rawData["bmi"] ?? 0;
+
+          // gender one-hot columns
+          const gender = rawData["Sex"] ?? rawData["gender"] ?? 0;
+          features["gender_Male"] = gender === 1 ? 1 : 0;
+          features["gender_Other"] = gender === 2 ? 1 : 0;
+
+          // work type one-hot
+          const work = rawData["Work Type"] ?? rawData["work_type"] ?? "";
+          [
+            "Govt_job",
+            "Never_worked",
+            "Private",
+            "Self-employed",
+            "children",
+          ].forEach((w) => {
+            const key = "work_type_" + w;
+            features[key] =
+              work === w ||
+              work.toLowerCase().replace("-", "_") === w.toLowerCase()
+                ? 1
+                : 0;
+          });
+
+          // residence one-hot (fix)
+          const residence = norm(
+            rawData["Residence Type"] ?? rawData["residence_type"]
+          );
+          features["Residence_type_Rural"] = residence === "rural" ? 1 : 0;
+          features["Residence_type_Urban"] = residence === "urban" ? 1 : 0;
+
+          // smoking one-hot (fix)
+          const smoke = norm(rawData["Smoking"] ?? rawData["smoking_status"]);
+          features["smoking_status_Unknown"] = smoke === "unknown" ? 1 : 0;
+          features["smoking_status_formerly smoked"] =
+            smoke.includes("ex") || smoke.includes("former") ? 1 : 0;
+          features["smoking_status_never smoked"] =
+            smoke.includes("non") || smoke.includes("never") ? 1 : 0;
+          features["smoking_status_smokes"] =
+            smoke.includes("current") || smoke.includes("smoke") ? 1 : 0;
+
+          const required = {
+            heart: [
+              "Age",
+              "Sex",
+              "RestingBP",
+              "Cholesterol",
+              "FastingBS",
+              "MaxHR",
+              "Oldpeak",
+              "ChestPainType_ATA",
+              "ChestPainType_NAP",
+              "ChestPainType_TA",
+              "RestingECG_Normal",
+              "RestingECG_ST",
+              "ExerciseAngina_Y",
+              "ST_Slope_Flat",
+              "ST_Slope_Up",
+            ],
+            hepatitis: [
+              "Age",
+              "Sex",
+              "ALB",
+              "ALP",
+              "ALT",
+              "AST",
+              "BIL",
+              "CHE",
+              "CHOL",
+              "CREA",
+              "GGT",
+              "PROT",
+            ],
+            stroke: [
+              "age",
+              "hypertension",
+              "heart_disease",
+              "ever_married",
+              "avg_glucose_level",
+              "bmi",
+              "gender_Male",
+              "gender_Other",
+              "work_type_Govt_job",
+              "work_type_Never_worked",
+              "work_type_Private",
+              "work_type_Self-employed",
+              "work_type_children",
+              "Residence_type_Rural",
+              "Residence_type_Urban",
+              "smoking_status_Unknown",
+              "smoking_status_formerly smoked",
+              "smoking_status_never smoked",
+              "smoking_status_smokes",
+            ],
+          };
+
+          required[selectedDisease].forEach((k) => {
+            if (features[k] === undefined) features[k] = 0;
+          });
+
+          console.log("RAW COLLECTED VALUES:", rawData);
+          console.log("FINAL FEATURES (sent to backend):", features);
+
+          const res = await fetch("/predict", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ disease: selectedDisease, features }),
+          });
+          const data = await res.json();
+
+          if (data.error) {
+            document.getElementById("result").innerText = "⚠️ " + data.error;
+          } else {
+            document.getElementById("result").innerText = data.prediction_text;
+            console.log("Server input_preview:", data.input_preview);
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
