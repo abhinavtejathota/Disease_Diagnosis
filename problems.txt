@@ -8,7 +8,7 @@ Prediction Result
 
 stroke - low risk -
 Prediction Result
-✅ Negative (Low Risk) — Probability: 0.244
+✅ Negative (Low Risk) — Probability: 0.244 (getting changed, have to update metrics and train-test again)
 
 Given,
 {
