@@ -767,7 +767,7 @@
             smoke.includes("non") || smoke.includes("never") ? 1 : 0;
           features["smoking_status_smokes"] =
             smoke.includes("current") || smoke.includes("smoke") ? 1 : 0;
-
+		}
           const required = {
             heart: [
               "Age",
@@ -830,7 +830,7 @@
           console.log("RAW COLLECTED VALUES:", rawData);
           console.log("FINAL FEATURES (sent to backend):", features);
 
-          const res = await fetch("/predict", {
+          const res = await fetch("http://127.0.0.1:5000/predict", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ disease: selectedDisease, features }),
@@ -844,7 +844,6 @@
             console.log("Server input_preview:", data.input_preview);
           }
         }
-      }
     </script>
   </body>
 </html>

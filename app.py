@@ -22,6 +22,7 @@ def home():
 @app.route("/predict", methods=["POST"])
 def predict():
     try:
+        print("✅ /predict hit")
         data = request.get_json()
         disease = data.get("disease")
         features = data.get("features")
