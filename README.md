@@ -2,7 +2,7 @@
 
 AI-powered Flask web app for predicting Heart Disease, Stroke, and Hepatitis risk.
 
--> Stroke prediction not completely handled, will be updated and changed later on.
+-> Stroke & Hepatitis prediction not completely handled, will be updated and changed later on.
 
 ## Setup
 
